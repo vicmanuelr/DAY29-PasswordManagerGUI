@@ -1,7 +1,17 @@
 from tkinter import *
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def save():
+    web = web_entry.get()
+    eml = email_entry.get()
+    pw = password_entry.get()
+    with open("data.txt", mode="a") as f:
+        f.write(f"{web} | {eml} | {pw}\n")
+    web_entry.delete(0, END)
+    password_entry.delete(0, END)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Window related
@@ -29,14 +39,14 @@ web_entry.grid(column=1, columnspan=2, row=1)
 web_entry.focus()
 email_entry = Entry(width=40)
 email_entry.grid(column=1, columnspan=2, row=2)
-email_entry.insert(END, "vicmanuelr@gmail.com")
+email_entry.insert(0, "vicmanuelr@gmail.com")
 password_entry = Entry(width=28)
 password_entry.grid(column=1, row=3)
 
 # Buttons
 gen_pass = Button(text="Generate PW", justify="left", width=9)
 gen_pass.grid(column=2, row=3)
-add_entry = Button(text="Add", width=38)
+add_entry = Button(text="Add", width=38, command=save)
 add_entry.grid(column=1, columnspan=2, row=4)
 
 window.mainloop()
