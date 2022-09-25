@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random as rn
+import pyperclip
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 # From Password Generator Project: git@github.com:vicmanuelr/DAY5-PyPassword-Generator.git
@@ -29,6 +30,7 @@ def gen_password():
     # join all passwords characters to deliver to user
     final_password = "".join(password_constructor)
     password_entry.insert(0, f"{final_password}")
+    pyperclip.copy(final_password)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
