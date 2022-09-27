@@ -7,7 +7,7 @@ import json
 
 # ------------------------------ SEARCH PASSWORD -------------------------------- #
 def search():
-    web = web_entry.get().lower()
+    web = web_entry.get().title()
     try:
         with open("data.json", mode="r") as f:
             # Reading old data
@@ -15,13 +15,11 @@ def search():
     except FileNotFoundError:
         messagebox.showinfo(title="Warning!", message="Empty database!")
     else:
-        for site, values in data.items():
-            if site.lower() == web:
-                mail = values["email"]
-                pwd = values["password"]
-                messagebox.showinfo(title=f"{site}", message=f"Your email: {mail}\nYour password: {pwd}")
-                pyperclip.copy(pwd)
-                break
+        if web in data:
+            mail = data[web]["email"]
+            pwd = data[web]["password"]
+            messagebox.showinfo(title=f"{web}", message=f"Your email: {mail}\nYour password: {pwd}")
+            pyperclip.copy(pwd)
         else:
             messagebox.showinfo(title="No match!", message="No entries found!")
 
