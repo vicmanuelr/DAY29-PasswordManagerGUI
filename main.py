@@ -4,6 +4,25 @@ import random as rn
 import pyperclip
 import json
 
+
+# ------------------------------ SEARCH PASSWORD -------------------------------- #
+def search():
+    web = web_entry.get().lower()
+    try:
+        with open("data.json", mode="r") as f:
+            # Reading old data
+            data = json.load(f)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Warning!", message="No entries found!")
+    else:
+        for site, values in data.items():
+            if site.lower() == web:
+                mail = values["email"]
+                pwd = values["password"]
+                messagebox.showinfo(title=f"{site}", message=f"Your email: {mail}\nYour password: {pwd}")
+                pyperclip.copy(pwd)
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 # From Password Generator Project: git@github.com:vicmanuelr/DAY5-PyPassword-Generator.git
 
@@ -91,8 +110,8 @@ password = Label(text="Password:", justify="center")
 password.grid(column=0, row=3)
 
 # Entries
-web_entry = Entry(width=40)
-web_entry.grid(column=1, columnspan=2, row=1)
+web_entry = Entry(width=28)
+web_entry.grid(column=1, row=1)
 web_entry.focus()
 email_entry = Entry(width=40)
 email_entry.grid(column=1, columnspan=2, row=2)
@@ -105,5 +124,7 @@ gen_pass = Button(text="Generate PW", justify="left", width=9, command=gen_passw
 gen_pass.grid(column=2, row=3)
 add_entry = Button(text="Add", width=38, command=save)
 add_entry.grid(column=1, columnspan=2, row=4)
+search_button = Button(text="Search", justify="center", width=9, command=search)
+search_button.grid(column=2, row=1)
 
 window.mainloop()
