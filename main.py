@@ -13,7 +13,7 @@ def search():
             # Reading old data
             data = json.load(f)
     except FileNotFoundError:
-        messagebox.showinfo(title="Warning!", message="No entries found!")
+        messagebox.showinfo(title="Warning!", message="Empty database!")
     else:
         for site, values in data.items():
             if site.lower() == web:
@@ -21,6 +21,9 @@ def search():
                 pwd = values["password"]
                 messagebox.showinfo(title=f"{site}", message=f"Your email: {mail}\nYour password: {pwd}")
                 pyperclip.copy(pwd)
+                break
+        else:
+            messagebox.showinfo(title="No match!", message="No entries found!")
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
