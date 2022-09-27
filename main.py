@@ -65,8 +65,9 @@ def save():
                 with open("data.json", mode="w") as f:
                     # Saving updated data
                     json.dump(data, f, indent=4)  # Replaced with new data dictionary for json formatting
-            web_entry.delete(0, END)
-            password_entry.delete(0, END)
+            finally:
+                web_entry.delete(0, END)
+                password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
